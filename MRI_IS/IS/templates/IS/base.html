@@ -24,13 +24,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggle">
           <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="{% url 'IS-home' %}">Home</a>
-            <a class="nav-item nav-link" href="{% url 'IS-about' %}">About</a>
+            <a class="nav-item nav-link" href="{% url 'IS-home' %}">Главная</a>
+            <a class="nav-item nav-link" href="{% url 'IS-about' %}">О системе</a>
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="#">Login</a>
-            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% if user.is_authenticated %}
+              <a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
+              <a class="nav-item nav-link" href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{% url 'login' %}">Войти</a>
+              <a class="nav-item nav-link" href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -40,11 +45,11 @@
     <div class="row">
       <div class="col-md-8">
         {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-              {{ message }}
-            </div>
-          {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
         {% endif %}
         {% block content %}{% endblock %}
       </div>
