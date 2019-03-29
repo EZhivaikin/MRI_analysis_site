@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
@@ -12,9 +13,11 @@ def register(request):
             form.save()
             #username = form.cleaned_data.get('username')
             messages.success(
-                request, f'Вы зарегистрированы! Теперь вы можете войти')
+                request, 'Вы зарегистрированы! Теперь вы можете войти')
             return redirect('login')
     else:
+        if request.user.is_authenticated:
+            return HttpResponseNotFound()
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
