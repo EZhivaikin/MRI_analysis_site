@@ -20,10 +20,6 @@ class Doctor(models.Model):
         on_delete=models.CASCADE
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    surname = models.CharField(max_length=45)
-    name = models.CharField(max_length=45)
-    patronymic = models.CharField(max_length=45, null=True)
-    email = models.CharField(max_length=255)
     phone = models.CharField(max_length=12)
 
 
