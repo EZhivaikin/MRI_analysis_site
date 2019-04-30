@@ -1,7 +1,7 @@
 from django import forms
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from domain.models import Clinic
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -17,3 +17,8 @@ class UserRegisterForm(UserCreationForm):
             'password1',
             'password2',
         ]
+
+class ClinicCreationForm(forms.ModelForm):
+    class Meta:
+        model = Clinic
+        exclude = ['director']

@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Clinic(models.Model):
+    director = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     contact_address = models.CharField(max_length=255)
     phone = models.CharField(max_length=12)
