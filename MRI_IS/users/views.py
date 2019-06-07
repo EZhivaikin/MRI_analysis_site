@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseNotFound
 from django.contrib import messages
-from .forms import *
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.http import HttpResponseNotFound
+from django.shortcuts import redirect, render
+
 from domain.models import Clinic
+
+from .forms import *
+
 # Create your views here.
 
 
@@ -11,8 +15,13 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            #username = form.cleaned_data.get('username')
+            group = form.data.get("user_group")
+            if group == '1':
+                group = Group.objects.get(name="Врач")
+            else:
+                group = Group.objects.get(name="Директор")
+            user = form.save()
+            user.groups.add(group)
             messages.success(
                 request, 'Вы зарегистрированы! Теперь вы можете войти')
             return redirect('login')
