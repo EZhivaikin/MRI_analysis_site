@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'domain.apps.DomainConfig',
     'crispy_forms',
+    'rolepermissions',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,5 @@ LOGIN_URL = 'login'
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 AUTH_USER_MODEL = 'users.User'
+
+ROLEPERMISSIONS_MODULE = 'users.roles'
