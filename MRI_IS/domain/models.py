@@ -1,27 +1,16 @@
 from django.db import models
 from django.conf import settings
-from users.models import User
-from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
 
 class Clinic(models.Model):
-    director = models.ForeignKey(User, on_delete=models.CASCADE)
+    director = models.IntegerField(unique=True)
     name = models.CharField(max_length=255)
     contact_address = models.CharField(max_length=255)
     phone = models.CharField(max_length=12)
     BIK = models.CharField(max_length=45)
     INN = models.CharField(max_length=45)
-
-
-class Doctor(models.Model):
-    clinic = models.ForeignKey(
-        Clinic,
-        on_delete=models.CASCADE
-    )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=12)
 
 
 class Patient(models.Model):
@@ -30,7 +19,7 @@ class Patient(models.Model):
         on_delete=models.CASCADE
     )
     doctor = models.ForeignKey(
-        Doctor,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True
     )
