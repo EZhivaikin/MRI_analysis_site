@@ -7,5 +7,5 @@ class User(AbstractUser):
     last_name = models.CharField(_('last name'), max_length=150)
     email = models.EmailField(_('email address'))
     patronymic = models.CharField('Отчество', max_length=255, blank=True)
-    phone = models.CharField(max_length=12)
+    phone = models.CharField(_('phone'),max_length=12)
 

@@ -5,12 +5,12 @@ from django.conf import settings
 
 
 class Clinic(models.Model):
-    director = models.IntegerField(unique=True)
-    name = models.CharField(max_length=255)
-    contact_address = models.CharField(max_length=255)
-    phone = models.CharField(max_length=12)
-    BIK = models.CharField(max_length=45)
-    INN = models.CharField(max_length=45)
+    director = models.IntegerField(unique=True, verbose_name="Директор")
+    name = models.CharField(max_length=255, verbose_name="Название клиники")
+    contact_address = models.CharField(max_length=255, verbose_name="Адрес")
+    phone = models.CharField(max_length=12, verbose_name="Телефон")
+    BIK = models.CharField(max_length=45, verbose_name="БИК")
+    INN = models.CharField(max_length=45, verbose_name="ИНН")
 
 
 class Patient(models.Model):

@@ -1,4 +1,5 @@
 {% load static %}
+{% load permission_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +51,7 @@
       <ul class="list-group sticky-top sticky-offset">
         <!-- Separator with title -->
         <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-          <small>MAIN MENU</small>
+          <small>Главное меню</small>
         </li>
         <!-- /END Separator -->
         <!-- Menu with submenu -->
@@ -58,76 +59,49 @@
           class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="fa fa-dashboard fa-fw mr-3"></span>
-            <span class="menu-collapsed">Dashboard</span>
-            <span class="submenu-icon ml-auto"></span>
+            <span class="menu-collapsed">На главную</span>
           </div>
         </a>
-        <!-- Submenu content -->
-        <div id="submenu1" class="collapse sidebar-submenu">
-          <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-            <span class="menu-collapsed">Charts</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-            <span class="menu-collapsed">Reports</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-            <span class="menu-collapsed">Tables</span>
-          </a>
-        </div>
         <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
           class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-start align-items-center">
+          <div class="d-flex w-100 justify-content-start align-items-center dropdown-toggle">
             <span class="fa fa-user fa-fw mr-3"></span>
-            <span class="menu-collapsed">Profile</span>
+            <span class="menu-collapsed">Клиника</span>
             <span class="submenu-icon ml-auto"></span>
           </div>
         </a>
         <!-- Submenu content -->
         <div id="submenu2" class="collapse sidebar-submenu">
+          {% if user|has_role:'director' %}
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-            <span class="menu-collapsed">Settings</span>
+            <span class="menu-collapsed">Управление клиникой</span>
+          </a>
+          {% endif %}
+          <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+            <span class="menu-collapsed">Доктора</span>
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-            <span class="menu-collapsed">Password</span>
+            <span class="menu-collapsed">Пациенты</span>
           </a>
         </div>
         <a href="#" class="bg-dark list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="fa fa-tasks fa-fw mr-3"></span>
-            <span class="menu-collapsed">Tasks</span>
+            <span class="menu-collapsed">Настройки пользователя</span>
           </div>
         </a>
-        <!-- Separator with title -->
+        {% comment %} <!-- Separator with title -->
         <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
           <small>OPTIONS</small>
-        </li>
+        </li> {% endcomment %}
         <!-- /END Separator -->
-        <a href="#" class="bg-dark list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="fa fa-calendar fa-fw mr-3"></span>
-            <span class="menu-collapsed">Calendar</span>
-          </div>
-        </a>
-        <a href="#" class="bg-dark list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="fa fa-envelope-o fa-fw mr-3"></span>
-            <span class="menu-collapsed">Messages <span class="badge badge-pill badge-primary ml-2">5</span></span>
-          </div>
-        </a>
         <!-- Separator without title -->
         <li class="list-group-item sidebar-separator menu-collapsed"></li>
         <!-- /END Separator -->
         <a href="#" class="bg-dark list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="fa fa-question fa-fw mr-3"></span>
-            <span class="menu-collapsed">Help</span>
-          </div>
-        </a>
-        <a href="#" data-toggle="sidebar-colapse"
-          class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-            <span id="collapse-text" class="menu-collapsed">Collapse</span>
+            <span class="menu-collapsed">Помощь</span>
           </div>
         </a>
         <!-- Logo -->
@@ -168,15 +142,15 @@
       // Hide submenus
       $('#body-row .collapse').collapse('hide');
 
-      // Collapse/Expand icon
+      {% comment %} // Collapse/Expand icon
       $('#collapse-icon').addClass('fa-angle-double-left');
 
       // Collapse click
       $('[data-toggle=sidebar-colapse]').click(function () {
         SidebarCollapse();
-      });
+      }); {% endcomment %}
 
-      function SidebarCollapse() {
+      {% comment %} function SidebarCollapse() {
         $('.menu-collapsed').toggleClass('d-none');
         $('.sidebar-submenu').toggleClass('d-none');
         $('.submenu-icon').toggleClass('d-none');
@@ -192,7 +166,7 @@
 
         // Collapse/Expand icon
         $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
-      }
+      } {% endcomment %}
     </script>
 </body>
 
