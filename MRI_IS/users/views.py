@@ -29,18 +29,18 @@ def register(request):
             return redirect('login')
     else:
         if request.user.is_authenticated:
-            return redirect()
+            return redirect('profile')
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
 
 @login_required
-@has_role_decorator('director')
 def profile(request):
     if request.method == 'GET':
         if Clinic.objects.filter(director=request.user.id).count() == 0:
             clinic_creation_form = ClinicCreationForm()
-            return render(request, 'users/profile.html', {'clinic_creation_form': clinic_creation_form})
+            return render(request, 'users/profile.html', 
+                {'clinic_creation_form': clinic_creation_form})
     elif request.method == 'POST':
         form = ClinicCreationForm(request.POST)
         if form.is_valid():
