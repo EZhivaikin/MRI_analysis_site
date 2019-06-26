@@ -12,7 +12,7 @@ class ClinicsManager():
     __doctors = User.objects
 
     @staticmethod
-    def add_clinic(clinic: Clinic, director: User) -> None:
+    def create_edit_clinic(clinic: Clinic, director: User) -> None:
         clinic.director = director
         clinic.save()
 
