@@ -73,7 +73,7 @@
         <!-- Submenu content -->
         <div id="submenu2" class="collapse sidebar-submenu">
           {% if user|has_role:'director' %}
-          <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+          <a href="{% url 'Clinic-create-edit' %}" class="list-group-item list-group-item-action bg-dark text-white">
             <span class="menu-collapsed">Управление клиникой</span>
           </a>
           {% endif %}

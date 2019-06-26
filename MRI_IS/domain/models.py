@@ -5,7 +5,11 @@ from django.conf import settings
 
 
 class Clinic(models.Model):
-    director = models.IntegerField(unique=True, verbose_name="Директор")
+    director = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Директор",
+        on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=255, verbose_name="Название клиники")
     contact_address = models.CharField(max_length=255, verbose_name="Адрес")
     phone = models.CharField(max_length=12, verbose_name="Телефон")

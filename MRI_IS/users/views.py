@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
+from django.contrib.auth.views import LoginView
 
+from domain.clinics_manager import ClinicsManager
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_role_decorator
 
@@ -13,6 +14,10 @@ from .forms import *
 
 # Create your views here.
 
+def login(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
+    return LoginView.as_view(template_name='users/login.html')(request)
 
 def register(request):
     if request.method == 'POST':
@@ -29,21 +34,6 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-
 @login_required
 def profile(request):
-    if request.method == 'GET':
-        if Clinic.objects.filter(director=request.user.id).count() == 0:
-            clinic_creation_form = ClinicCreationForm()
-            return render(request, 'users/profile.html', 
-                {'clinic_creation_form': clinic_creation_form})
-    elif request.method == 'POST':
-        form = ClinicCreationForm(request.POST)
-        if form.is_valid():
-            clinic = form.save(commit=False)
-            clinic.director = request.user
-            clinic.save()
-            messages.success(
-                request, 'Вы создали клинику!')
-            return redirect('login')
     return render(request, 'users/profile.html')

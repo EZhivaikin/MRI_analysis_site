@@ -1,6 +1,7 @@
 from .models import Clinic, Patient
 from django.conf import settings
 from typing import List
+from users.models import User 
 
 class ClinicsManager():
     """
@@ -8,14 +9,15 @@ class ClinicsManager():
     """
     __clinics = Clinic.objects
     __patients = Patient.objects
-    __doctors = settings.AUTH_USER_MODEL.objects
+    __doctors = User.objects
 
     @staticmethod
-    def add_clinic(clinic: Clinic, director: settings.AUTH_USER_MODEL) -> None:
-        pass
+    def add_clinic(clinic: Clinic, director: User) -> None:
+        clinic.director = director
+        clinic.save()
 
     @staticmethod
-    def add_doctor(clinic: Clinic, doctor: settings.AUTH_USER_MODEL) -> None:
+    def add_doctor(clinic: Clinic, doctor: User) -> None:
         pass
 
     @staticmethod
@@ -38,6 +40,10 @@ class ClinicsManager():
     def get_all_clinics() -> List[Clinic]:
         pass
     
+    @staticmethod
+    def get_clinics_by_director(director: User) -> Clinic:
+       return ClinicsManager.__clinics.filter(director=director).first()
+
     @staticmethod
     def get_clinics_by_filter(expression) -> List[Clinic]:
         pass

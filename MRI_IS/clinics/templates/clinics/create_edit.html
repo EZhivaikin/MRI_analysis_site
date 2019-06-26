@@ -1,0 +1,17 @@
+{% extends "IS/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>{{ user.first_name }}</h1>
+    <div class="content-section">
+            <form method="post">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Создание клиники</legend>
+                    {{ clinic_creation_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+{% endblock %}

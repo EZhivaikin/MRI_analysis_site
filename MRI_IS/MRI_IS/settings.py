@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'domain.apps.DomainConfig',
     'crispy_forms',
     'rolepermissions',
+    'clinics'
 ]
 
 MIDDLEWARE = [
