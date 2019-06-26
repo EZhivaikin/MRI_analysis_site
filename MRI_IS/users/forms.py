@@ -5,20 +5,19 @@ from domain.models import Clinic
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-    ROLES = [
-        (1,"Врач"),
-        (2, "Директор"),
-    ]
-    user_group = forms.ChoiceField(label="Роль", choices=ROLES)
+    # ROLES = [
+    #     (1,"Врач"),
+    #     (2, "Директор"),
+    # ]
     class Meta:
         model = User
         fields = [
-            "user_group",
             "username",
             "first_name",
             "last_name",
             "patronymic",
             "email",
+            "phone",
             "password1",
             "password2",
         ]

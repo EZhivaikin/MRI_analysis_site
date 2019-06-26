@@ -26,7 +26,7 @@ class Patient(models.Model):
     card_number = models.CharField(max_length=45)
 
 
-class Inspections(models.Model):
+class Inspection(models.Model):
     patient = models.ForeignKey(
         Patient,
         on_delete=models.CASCADE
@@ -35,9 +35,9 @@ class Inspections(models.Model):
     code = models.IntegerField(unique=True)
 
 
-class Captures(models.Model):
+class Capture(models.Model):
     inspection_code = models.ForeignKey(
-        'Inspections',
+        'Inspection',
         to_field='code',
         on_delete=models.CASCADE
     )

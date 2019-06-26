@@ -11,11 +11,11 @@ class ClinicsManager():
     __doctors = settings.AUTH_USER_MODEL.objects
 
     @staticmethod
-    def add_clinic(clinic: Clinic) -> None:
+    def add_clinic(clinic: Clinic, director: settings.AUTH_USER_MODEL) -> None:
         pass
 
     @staticmethod
-    def add_doctor(doctor: settings.AUTH_USER_MODEL) -> None:
+    def add_doctor(clinic: Clinic, doctor: settings.AUTH_USER_MODEL) -> None:
         pass
 
     @staticmethod

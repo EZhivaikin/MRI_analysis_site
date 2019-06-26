@@ -18,12 +18,8 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            group = form.data.get("user_group")
             user = form.save()
-            if group == '1':
-                assign_role(user, 'doctor')
-            else:
-                assign_role(user, 'director')
+            assign_role(user, 'director')
             messages.success(
                 request, 'Вы зарегистрированы! Теперь вы можете войти')
             return redirect('login')
@@ -45,7 +41,6 @@ def profile(request):
         form = ClinicCreationForm(request.POST)
         if form.is_valid():
             clinic = form.save(commit=False)
-            print(clinic)
             clinic.director = request.user
             clinic.save()
             messages.success(
