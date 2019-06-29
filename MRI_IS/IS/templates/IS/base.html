@@ -87,10 +87,11 @@
         <a href="#" class="bg-dark list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="fa fa-tasks fa-fw mr-3"></span>
-            <span class="menu-collapsed">Настройки пользователя</span>
+            <span class="menu-collapsed">Профиль</span>
           </div>
         </a>
-        {% comment %} <!-- Separator with title -->
+        {% comment %}
+        <!-- Separator with title -->
         <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
           <small>OPTIONS</small>
         </li> {% endcomment %}
@@ -113,20 +114,26 @@
     {% endif %}
 
     <!-- sidebar-container END -->
-    <main role="main" class="container">
-      <div class="d-flex justify-content-center">
-        <div class="col-10">
-          {% if messages %}
-          {% for message in messages %}
-          <div class="alert alert-{{ message.tag }}">
-            {{ message }}
+    {% comment %} <main role="main" class="container">
+      <div class="d-flex justify-content-center"> {% endcomment %}
+      {% if not user.is_authenticated %}
+        <div class="d-flex justify-content-center">
+      {% else %}
+        <div class="col-md-6 offset-md-2">
+      {% endif %}
+          <div class="content-general ">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
           </div>
-          {% endfor %}
-          {% endif %}
-          {% block content %}{% endblock %}
         </div>
-      </div>
-    </main>
+        {% comment %} </div>
+    </main> {% endcomment %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -150,7 +157,9 @@
         SidebarCollapse();
       }); {% endcomment %}
 
-      {% comment %} function SidebarCollapse() {
+      {% comment %}
+
+      function SidebarCollapse() {
         $('.menu-collapsed').toggleClass('d-none');
         $('.sidebar-submenu').toggleClass('d-none');
         $('.submenu-icon').toggleClass('d-none');

@@ -46,3 +46,58 @@ class Capture(models.Model):
         on_delete=models.CASCADE
     )
     storage_key = models.CharField(max_length=45)
+
+
+class Bill(models.Model):
+    bill_number = models.IntegerField()
+    bill_data = models.DateTimeField()
+    payment_date = models.DateTimeField()
+    is_payed = models.BooleanField()
+    status_description = models.CharField(max_length=255)
+    amount = models.FloatField()
+    bill_status = models.IntegerField()
+
+
+class Payment(models.Model):
+    purpose = models.CharField(max_length=255)
+    BIK = models.CharField(max_length=255)
+    INN = models.CharField(max_length=255)
+    amount = models.FloatField()
+    bill_date = models.DateField()
+    clinic_id = models.IntegerField()  # TODO: foreign key
+    bill_number = models.IntegerField()
+    operation_status = models.IntegerField()
+
+
+class Service(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    transactions_price = models.CharField(max_length=255)
+
+
+class TariffsService(models.Model):
+    tariff_id = models.IntegerField()  # TODO: foreign key
+    service_id = models.IntegerField()  # TODO: foreign key
+    transactions_count = models.IntegerField()
+
+
+class ClinicsTariff(models.Model):
+    tariff_id = models.IntegerField()  # TODO: foreign key
+    clinic_id = models.IntegerField()  # TODO: foreign key
+    date_start = models.DateField()  # TODO: durationField
+    date_end = models.DateField()
+
+
+class TransactionsLeftover(models.Model):
+    clinic_id = models.IntegerField()  # TODO: foreign key
+    service_id = models.IntegerField()  # TODO: foreign key
+    transactions_left = models.IntegerField()
+
+
+class Tariff(models.Model):
+    request_count = models.IntegerField()
+    name = models.CharField(max_length=255)
+    price = models.FloatField()
+    is_enabled = models.BooleanField()
+    description = models.CharField(max_length=255)
+    duration = models.IntegerField()

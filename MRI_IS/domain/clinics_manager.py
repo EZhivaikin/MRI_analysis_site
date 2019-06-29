@@ -39,10 +39,10 @@ class ClinicsManager():
     @staticmethod
     def get_all_clinics() -> List[Clinic]:
         pass
-    
+
     @staticmethod
     def get_clinics_by_director(director: User) -> Clinic:
-       return ClinicsManager.__clinics.filter(director=director).first()
+        return ClinicsManager.__clinics.filter(director=director).first()
 
     @staticmethod
     def get_clinics_by_filter(expression) -> List[Clinic]:
