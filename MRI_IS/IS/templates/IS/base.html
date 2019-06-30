@@ -73,11 +73,11 @@
         <!-- Submenu content -->
         <div id="submenu2" class="collapse sidebar-submenu">
           {% if user|has_role:'director' %}
-          <a href="{% url 'Clinic-create-edit' %}" class="list-group-item list-group-item-action bg-dark text-white">
+          <a href="{% url 'clinic-create-edit' %}" class="list-group-item list-group-item-action bg-dark text-white">
             <span class="menu-collapsed">Управление клиникой</span>
           </a>
           {% endif %}
-          <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+          <a href="{% url 'doctor-list' %}" class="list-group-item list-group-item-action bg-dark text-white">
             <span class="menu-collapsed">Доктора</span>
           </a>
           <a href="#" class="list-group-item list-group-item-action bg-dark text-white">

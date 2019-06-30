@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from domain.models import Clinic
+from users.models import User
 from .forms import ClinicCreationForm
 from domain.clinics_manager import ClinicsManager
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.generic.list import ListView
+
 
 # Create your views here.
 
@@ -33,3 +36,16 @@ def clinics_create_edit(request):
             messages.success(
                 request, 'Вы создали клинику!')
             return redirect('profile')
+
+
+class DoctorListView(ListView):
+
+    model = User
+    paginate_by = 10
+    template_name = "doctor-list.html"
+    ordering = ['-created']
+
+    def get_queryset(self):
+        queryset = ClinicsManager.get_clinics_by_director(
+            director=self.request.user.id)
+        return queryset
