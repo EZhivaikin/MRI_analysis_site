@@ -2,10 +2,19 @@
 {% load crispy_forms_tags %}
 {% load permission_tags %}
 {% block content %}
-    <button type="button" class="btn btn-outline-primary">Добавить врача</button>
+    {% if object_list|length != 1 %}
+    <a href="{% url 'doctor-create-edit' 0 %}">
+        <button type="button" class="btn btn-outline-primary">Добавить врача</button>
+    </a>
+    <ul class="list-group my-3">
+        <li class="list-group-item list-group-item-secondary">Список врачей</li>
+    {% else %}
+        <p> В вашей клинике пока что нет ни одного врача. <a href="{% url 'doctor-create-edit' 0 %}">Добавить врача </a> </p>
+    {% endif %}
     {% for doctor in object_list %}
         {% if doctor|has_role:'doctor'%}
-        <li><a href="{% url 'doctor-create-edit' doctor.id %}">{{ doctor.first_name }} {{ doctor.second_name }}</li>
+        <li class="list-group-item"><a href="{% url 'doctor-create-edit' doctor.id %}">{{ doctor.first_name }} {{ doctor.second_name }}</li>
         {% endif %}
     {% endfor %}
+    </ul>
 {% endblock %}
