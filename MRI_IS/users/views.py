@@ -14,10 +14,12 @@ from .forms import *
 
 # Create your views here.
 
+
 def login(request):
     if request.user.is_authenticated:
         return redirect('profile')
     return LoginView.as_view(template_name='users/login.html')(request)
+
 
 def register(request):
     if request.method == 'POST':
@@ -33,6 +35,7 @@ def register(request):
             return redirect('profile')
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
+
 
 @login_required
 def profile(request):

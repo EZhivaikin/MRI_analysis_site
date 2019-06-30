@@ -1,0 +1,11 @@
+{% extends "IS/base.html" %}
+{% load crispy_forms_tags %}
+{% load permission_tags %}
+{% block content %}
+    <button type="button" class="btn btn-outline-primary">Добавить врача</button>
+    {% for doctor in object_list %}
+        {% if doctor|has_role:'doctor'%}
+        <li><a href="{% url 'doctor-create-edit' doctor.id %}">{{ doctor.first_name }} {{ doctor.second_name }}</li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
