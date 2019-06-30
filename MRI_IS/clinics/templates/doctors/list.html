@@ -13,7 +13,7 @@
     {% endif %}
     {% for doctor in object_list %}
         {% if doctor|has_role:'doctor'%}
-        <li class="list-group-item"><a href="{% url 'doctor-create-edit' doctor.id %}">{{ doctor.first_name }} {{ doctor.second_name }}</li>
+        <li class="list-group-item"><a href="{% url 'doctor-create-edit' doctor.id %}">{{ doctor.first_name }} {{ doctor.last_name }}</li>
         {% endif %}
     {% endfor %}
     </ul>

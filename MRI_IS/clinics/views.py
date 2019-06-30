@@ -39,7 +39,7 @@ def clinics_create_edit(request):
                 clinic=clinic, director=request.user)
             messages.success(
                 request, 'Вы создали клинику!')
-            return redirect('profile')
+            return redirect('doctors-list')
 
 
 class DoctorListView(ListView):
